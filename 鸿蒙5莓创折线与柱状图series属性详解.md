@@ -1,195 +1,169 @@
-大家好，欢迎回来鸿蒙5莓创图表组件的专场，我们这一期来讲解McLineBarChart组合图中最重要的series属性。series属性决定了图表中每个系列的表现形式和行为，是图表配置中最核心的部分。
+Hello everyone, welcome back to the special session on HarmonyOS 5 Meichuang chart components. In this episode, we'll explain the most important `series` property in the McLineBarChart combined chart. The `series` property determines the presentation form and behavior of each series in the chart, serving as the core part of chart configuration.  
 
-## 1. show属性
 
-作用：控制当前系列是否显示在图表中
+## 1. `show` Property  
+**Function**: Controls whether the current series is displayed in the chart.  
+**Type**: Boolean  
+**Default**: `true`  
+**Options**:  
+- `true`: Display the series.  
+- `false`: Hide the series.  
+**Usage Scenario**: Use when dynamically showing/hiding a data series, such as during chart switching.  
 
-类型：Boolean
-
-默认值：true
-
-可选值：
-
--   true：显示该系列
--   false：隐藏该系列
-
-使用场景：当需要动态显示/隐藏某个数据系列时使用，比如在图表切换时。
-
-```
+```typescript
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000, 1400, 1700, 1500],
     type: 'bar',
-    show: false // 初始不显示该系列
+    show: false // Do not display this series initially
   }
 ]
-```
+```  
 
-## 2. name属性
 
-作用：定义系列名称，用于图例显示和tooltip提示
+## 2. `name` Property  
+**Function**: Defines the series name for legend display and tooltip hints.  
+**Type**: String  
+**Default**: None  
+**Usage Scenario**: Must set a name for each series; otherwise, legend and tooltip information cannot be displayed correctly.  
 
-类型：String
-
-默认值：无
-
-使用场景：必须为每个系列设置名称，否则图例和提示信息无法正确显示。
-
-```
+```typescript
 series: [
   {
-    name: '人流量', // 系列名称
+    name: 'Foot Traffic', // Series name
     data: [1000, 1200, 900, 1500, 900, 1200, 1000],
     type: 'line'
   }
 ]
-```
+```  
 
-## 3. stack属性
 
-作用：设置堆叠系列的名称，相同名称的系列会堆叠在一起
+## 3. `stack` Property  
+**Function**: Sets the name of the stacked series; series with the same name will be stacked together.  
+**Type**: String  
+**Default**: None  
+**Usage Scenario**: Use when showing the cumulative effect of multiple series, such as demonstrating the contribution of different products to total sales.  
 
-类型：String
-
-默认值：无
-
-使用场景：当需要展示多个系列的累计效果时使用，比如展示不同产品在总销售额中的贡献。
-
-```
+```typescript
 series: [
   {
-    name: '产品A',
+    name: 'Product A',
     data: [500, 700, 400, 600, 400, 700, 500],
     type: 'bar',
-    stack: 'total' // 堆叠组名
+    stack: 'total' // Stack group name
   },
   {
-    name: '产品B',
+    name: 'Product B',
     data: [1000, 1000, 1000, 1400, 1000, 1000, 1000],
     type: 'bar',
-    stack: 'total' // 与产品A堆叠在一起
+    stack: 'total' // Stacked with Product A
   }
 ]
-```
+```  
 
-## 4. xAxisIndex属性
 
-作用：指定系列使用的x轴索引
+## 4. `xAxisIndex` Property  
+**Function**: Specifies the x-axis index used by the series.  
+**Type**: Number  
+**Default**: `0`  
+**Usage Scenario**: When the chart configures multiple x-axes, specify which x-axis the series uses.  
 
-类型：Number
-
-默认值：0
-
-使用场景：当图表配置了多个x轴时，用于指定系列使用哪个x轴。
-
-```
+```typescript
 xAxis: [
   { data: ['Q1', 'Q2', 'Q3', 'Q4'] },
-  { data: ['第一季度', '第二季度', '第三季度', '第四季度'] }
+  { data: ['1st Qtr', '2nd Qtr', '3rd Qtr', '4th Qtr'] }
 ],
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
-    xAxisIndex: 1 // 使用第二个x轴
+    xAxisIndex: 1 // Use the second x-axis
   }
 ]
-```
+```  
 
-## 5. yAxisIndex属性
 
-作用：指定系列使用的y轴索引
+## 5. `yAxisIndex` Property  
+**Function**: Specifies the y-axis index used by the series.  
+**Type**: Number  
+**Default**: `0`  
+**Usage Scenario**: When the chart configures multiple y-axes, specify which y-axis the series uses, commonly used in dual y-axis charts.  
 
-类型：Number
-
-默认值：0
-
-使用场景：当图表配置了多个y轴时，用于指定系列使用哪个y轴，常用于双y轴图表。
-
-```
+```typescript
 yAxis: [
-  { name: '销售额' },
-  { name: '增长率', position: 'right' }
+  { name: 'Sales' },
+  { name: 'Growth Rate', position: 'right' }
 ],
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar'
   },
   {
-    name: '增长率',
+    name: 'Growth Rate',
     data: [15, 17, 14, 20],
     type: 'line',
-    yAxisIndex: 1 // 使用第二个y轴
+    yAxisIndex: 1 // Use the second y-axis
   }
 ]
-```
+```  
 
-## 6. data属性
 
-作用：设置系列的数据值
+## 6. `data` Property  
+**Function**: Sets the data values of the series.  
+**Type**: Array<String|Number|Object>  
+**Default**: `[]`  
+**Usage Scenario**: Must set data for each series, supporting three formats:  
+- Pure numeric array: `[100, 200, 300]`  
+- String array: `['100', '200', '300']`  
+- Object array (only supported by bar type): `[{value: 100, color: '#ff0000'}]`  
 
-类型：Array<String|Number|Object>
-
-默认值：[]
-
-使用场景：必须为每个系列设置数据，支持三种格式：
-
--   纯数值数组：[100, 200, 300]
--   字符串数组：['100', '200', '300']
--   对象数组（仅bar类型支持）：[{value: 100, color: '#ff0000'}]
-
-```
+```typescript
 series: [
   {
-    name: '销售额',
-    data: [1500, 1700, 1400, 2000], // 纯数值
+    name: 'Sales',
+    data: [1500, 1700, 1400, 2000], // Pure numeric
     type: 'bar'
   },
   {
-    name: '特殊值',
+    name: 'Special Values',
     data: [
-      {value: 1000, color: '#ff0000'}, // 红色柱子
-      {value: 1200, color: '#00ff00'}, // 绿色柱子
-      900, // 默认颜色柱子
+      {value: 1000, color: '#ff0000'}, // Red column
+      {value: 1200, color: '#00ff00'}, // Green column
+      900, // Default color column
       1500
     ],
     type: 'bar'
   }
 ]
-```
+```  
 
-## 7. label属性
 
-作用：配置系列上显示的文本标签
+## 7. `label` Property  
+**Function**: Configures text labels displayed on the series.  
+**Type**: Object  
+**Default**: `{}`  
+**Sub-properties**:  
+- `show`: Whether to display labels (Boolean, default `false`).  
+- `position`: Label position (String, default `'top'`).  
+- `color`: Label color (String, default `'#000'`).  
+- `fontSize`: Font size (Number, default `12`).  
+- `fontWeight`: Font weight (String, default `'normal'`).  
+- `formatter`: Label content formatting function (Function).  
+**Usage Scenario**: Use when directly displaying values on the chart.  
 
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   show：是否显示标签（Boolean，默认false）
--   position：标签位置（String，默认'top'）
--   color：标签颜色（String，默认'#000'）
--   fontSize：字体大小（Number，默认12）
--   fontWeight：字体粗细（String，默认'normal'）
--   formatter：标签内容格式化函数（Function）
-
-使用场景：当需要在图表上直接显示数值时使用。
-
-```
+```typescript
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
     label: {
       show: true,
-      position: 'inside', // 标签显示在柱子内部
+      position: 'inside', // Labels inside the column
       color: '#fff',
       fontSize: 14,
       fontWeight: 'bold',
@@ -197,200 +171,170 @@ series: [
     }
   }
 ]
-```
+```  
 
-## 8. rLevel属性
 
-作用：设置系列渲染层级
+## 8. `rLevel` Property  
+**Function**: Sets the series rendering level.  
+**Type**: Number  
+**Default**: `0`  
+**Usage Scenario**: Use when controlling the display hierarchy of multiple series; larger values are displayed on top.  
 
-类型：Number
-
-默认值：0
-
-使用场景：当需要控制多个系列的显示层级时使用，数值越大显示在越上层。
-
-```
+```typescript
 series: [
   {
-    name: '背景',
+    name: 'Background',
     data: [2000, 2000, 2000, 2000],
     type: 'bar',
-    rLevel: 0 // 底层
+    rLevel: 0 // Bottom layer
   },
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
-    rLevel: 1 // 上层
+    rLevel: 1 // Top layer
   }
 ]
-```
+```  
 
-## 9. animationCurve属性
 
-作用：设置系列动画的缓动效果
+## 9. `animationCurve` Property  
+**Function**: Sets the easing effect of series animation.  
+**Type**: String  
+**Default**: `'easeOutCubic'`  
+**Options**: `'linear'`, `'easeInQuad'`, `'easeOutQuad'`, `'easeInOutQuad'`, `'easeInCubic'`, `'easeOutCubic'`, `'easeInOutCubic'`, `'easeInQuart'`, `'easeOutQuart'`, `'easeInOutQuart'`, `'easeInQuint'`, `'easeOutQuint'`, `'easeInOutQuint'`, `'easeInSine'`, `'easeOutSine'`, `'easeInOutSine'`, `'easeInExpo'`, `'easeOutExpo'`, `'easeInOutExpo'`, `'easeInCirc'`, `'easeOutCirc'`, `'easeInOutCirc'`, `'easeInBack'`, `'easeOutBack'`, `'easeInOutBack'`, `'easeInElastic'`, `'easeOutElastic'`, `'easeInOutElastic'`, `'easeInBounce'`, `'easeOutBounce'`, `'easeInOutBounce'`.  
+**Usage Scenario**: Use when customizing series animation effects.  
 
-类型：String
-
-默认值：'easeOutCubic'
-
-可选值：'linear', 'easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic', 'easeOutCubic', 'easeInOutCubic', 'easeInQuart', 'easeOutQuart', 'easeInOutQuart', 'easeInQuint', 'easeOutQuint', 'easeInOutQuint', 'easeInSine', 'easeOutSine', 'easeInOutSine', 'easeInExpo', 'easeOutExpo', 'easeInOutExpo', 'easeInCirc', 'easeOutCirc', 'easeInOutCirc', 'easeInBack', 'easeOutBack', 'easeInOutBack', 'easeInElastic', 'easeOutElastic', 'easeInOutElastic', 'easeInBounce', 'easeOutBounce', 'easeInOutBounce'
-
-使用场景：当需要自定义系列动画效果时使用。
-
-```
+```typescript
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
-    animationCurve: 'easeOutBounce' // 弹跳动画效果
+    animationCurve: 'easeOutBounce' // Bounce animation effect
   }
 ]
-```
+```  
 
-## 10. animationFrame属性
 
-作用：设置系列动画的帧数
+## 10. `animationFrame` Property  
+**Function**: Sets the frame rate of series animation.  
+**Type**: Number  
+**Default**: `30`  
+**Usage Scenario**: Use when adjusting animation smoothness or performance.  
 
-类型：Number
-
-默认值：30
-
-使用场景：当需要调整动画流畅度或性能时使用。
-
-```
+```typescript
 series: [
   {
-    name: '销售额',
+    name: 'Sales',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
-    animationFrame: 60 // 更流畅的动画
+    animationFrame: 60 // Smoother animation
   }
 ]
-```
+```  
 
-## 11. smooth属性
 
-作用：是否显示为平滑曲线
+## 11. `smooth` Property  
+**Function**: Whether to display as a smooth curve.  
+**Type**: Boolean  
+**Default**: `false`  
+**Options**:  
+- `true`: Smooth curve.  
+- `false`: Polyline.  
+**Usage Scenario**: Use when showing a softer trend line.  
 
-类型：Boolean
-
-默认值：false
-
-可选值：
-
--   true：平滑曲线
--   false：折线
-
-使用场景：当需要展示更柔和的趋势线时使用。
-
-```
+```typescript
 series: [
   {
-    name: '趋势线',
+    name: 'Trend Line',
     data: [1500, 1700, 1400, 2000],
     type: 'line',
-    smooth: true // 平滑曲线
+    smooth: true // Smooth curve
   }
 ]
-```
+```  
 
-## 12. lineStyle属性
 
-作用：配置线条样式（仅对line类型有效）
+## 12. `lineStyle` Property  
+**Function**: Configures line styles (only valid for line type).  
+**Type**: Object  
+**Default**: `{}`  
+**Sub-properties**:  
+- `color`: Line color (String, default series color).  
+- `width`: Line width (Number, default `2`).  
+- `type`: Line type (String, default `'solid'`).  
+- `dash`: Dashed line configuration (Array, no default).  
+- `cap`: Line end style (String, default `'butt'`).  
+**Usage Scenario**: Use when customizing line appearance.  
 
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   color：线条颜色（String，默认系列颜色）
--   width：线条宽度（Number，默认2）
--   type：线条类型（String，默认'solid'）
--   dash：虚线配置（Array，无默认值）
--   cap：线条端点样式（String，默认'butt'）
-
-使用场景：当需要自定义线条外观时使用。
-
-```
+```typescript
 series: [
   {
-    name: '趋势线',
+    name: 'Trend Line',
     data: [1500, 1700, 1400, 2000],
     type: 'line',
     lineStyle: {
       color: '#ff0000',
       width: 4,
-      type: 'dashed', // 虚线
-      dash: [10, 5], // 虚线样式
-      cap: 'round' // 圆角端点
+      type: 'dashed', // Dashed line
+      dash: [10, 5], // Dashed pattern
+      cap: 'round' // Rounded ends
     }
   }
 ]
-```
+```  
 
-## 13. itemStyle属性
 
-作用：配置系列中每个数据点的样式
+## 13. `itemStyle` Property  
+**Function**: Configures the style of each data point in the series.  
+**Type**: Object  
+**Default**: `{}`  
+**Sub-properties**:  
+- `color`: Data point color (String, default series color).  
+- `borderColor`: Border color (String, default `'#fff'`).  
+- `borderWidth`: Border width (Number, default `1`).  
+- `radius`: Corner radius (Number, default `0`).  
+- `shadowBlur`: Shadow blur size (Number, default `0`).  
+- `shadowColor`: Shadow color (String, default `'rgba(0,0,0,0.5)'`).  
+- `shadowOffsetX`: Shadow X offset (Number, default `0`).  
+- `shadowOffsetY`: Shadow Y offset (Number, default `0`).  
+**Usage Scenario**: Use when customizing data point appearance.  
 
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   color：数据点颜色（String，默认系列颜色）
--   borderColor：边框颜色（String，默认'#fff'）
--   borderWidth：边框宽度（Number，默认1）
--   radius：圆角半径（Number，默认0）
--   shadowBlur：阴影模糊大小（Number，默认0）
--   shadowColor：阴影颜色（String，默认'rgba(0,0,0,0.5)'）
--   shadowOffsetX：阴影X偏移（Number，默认0）
--   shadowOffsetY：阴影Y偏移（Number，默认0）
-
-使用场景：当需要自定义数据点外观时使用。
-
-```
+```typescript
 series: [
   {
-    name: '数据点',
+    name: 'Data Points',
     data: [1500, 1700, 1400, 2000],
     type: 'line',
     itemStyle: {
       color: '#37a2da',
       borderColor: '#fff',
       borderWidth: 2,
-      radius: 10, // 圆形数据点
+      radius: 10, // Circular data points
       shadowBlur: 10,
       shadowColor: 'rgba(0,0,0,0.3)'
     }
   }
 ]
-```
+```  
 
-## 14. areaStyle属性
 
-作用：配置区域填充样式（仅对line类型有效）
+## 14. `areaStyle` Property  
+**Function**: Configures area fill styles (only valid for line type).  
+**Type**: Object  
+**Default**: `{}`  
+**Sub-properties**:  
+- `show`: Whether to show area fill (Boolean, default `false`).  
+- `color`: Fill color (String|Array|Object, default series color).  
+- `origin`: Fill start position (String, default `'auto'`).  
+- `opacity`: Fill transparency (Number, default `1`).  
+**Usage Scenario**: Use when showing area chart effects.  
 
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   show：是否显示区域填充（Boolean，默认false）
--   color：填充颜色（String|Array|Object，默认系列颜色）
--   origin：填充起始位置（String，默认'auto'）
--   opacity：填充透明度（Number，默认1）
-
-使用场景：当需要展示面积图效果时使用。
-
-```
+```typescript
 series: [
   {
-    name: '面积图',
+    name: 'Area Chart',
     data: [1500, 1700, 1400, 2000],
     type: 'line',
     areaStyle: {
@@ -409,302 +353,87 @@ series: [
           color: 'rgba(55,162,218,0.1)'
         }]
       },
-      origin: 'start', // 从y轴0开始填充
+      origin: 'start', // Fill from y-axis 0
       opacity: 0.8
     }
   }
 ]
-```
+```  
 
-## 15. endLabel属性
 
-作用：配置系列末端的标签
+## 15. `endLabel` Property  
+**Function**: Configures the label at the end of the series.  
+**Type**: Object  
+**Default**: `{}`  
+**Sub-properties**:  
+- `show`: Whether to show the end label (Boolean, default `false`).  
+- `value`: Custom display value (String|Number, default data value).  
+- `color`: Label color (String, default series color).  
+- `fontSize`: Font size (Number, default `12`).  
+- `fontWeight`: Font weight (String, default `'normal'`).  
+- `offset`: Label offset (Array, default `[0, 0]`).  
+**Usage Scenario**: Use when highlighting the last data point of the series.  
 
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   show：是否显示末端标签（Boolean，默认false）
--   value：自定义显示值（String|Number，默认数据值）
--   color：标签颜色（String，默认系列颜色）
--   fontSize：字体大小（Number，默认12）
--   fontWeight：字体粗细（String，默认'normal'）
--   offset：标签偏移量（Array，默认[0, 0]）
-
-使用场景：当需要突出显示系列最后一个数据点时使用。
-
-```
+```typescript
 series: [
   {
-    name: '趋势',
+    name: 'Trend',
     data: [1500, 1700, 1400, 2000],
     type: 'line',
     endLabel: {
       show: true,
-      value: '当前值',
+      value: 'Current Value',
       color: '#ff0000',
       fontSize: 16,
       fontWeight: 'bold',
-      offset: [10, 0] // 向右偏移10px
+      offset: [10, 0] // Offset 10px to the right
     }
   }
 ]
-```
+```  
 
-## 16. shapeType属性
 
-作用：设置柱状图形状类型（仅对bar类型有效）
+## 16. `shapeType` Property  
+**Function**: Sets the bar chart shape type (only valid for bar type).  
+**Type**: String  
+**Default**: `'normal'`  
+**Options**:  
+- `'normal'`: Normal bar chart.  
+- `'leftEchelon'`: Left echelon bar chart.  
+- `'rightEchelon'`: Right echelon bar chart.  
+**Usage Scenario**: Use when creating bar charts with special shapes.  
 
-类型：String
-
-默认值：'normal'
-
-可选值：
-
--   'normal'：普通柱状图
--   'leftEchelon'：左阶梯状柱状图
--   'rightEchelon'：右阶梯状柱状图
-
-使用场景：当需要创建特殊形状的柱状图时使用。
-
-```
+```typescript
 series: [
   {
-    name: '阶梯状',
+    name: 'Echelon',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
-    shapeType: 'leftEchelon' // 左阶梯状
+    shapeType: 'leftEchelon' // Left echelon shape
   }
 ]
-```
+```  
 
-## 17. echelonOffset属性
 
-作用：设置阶梯状柱状图的锐度偏移量（仅对bar类型有效）
+## 17. `echelonOffset` Property  
+**Function**: Sets the sharpness offset of echelon bar charts (only valid for bar type).  
+**Type**: Number  
+**Default**: `10`  
+**Usage Scenario**: When `shapeType` is `leftEchelon` or `rightEchelon`, control the sharpness of the echelon.  
 
-类型：Number
-
-默认值：10
-
-使用场景：当使用shapeType为leftEchelon或rightEchelon时，用于控制阶梯的锐度。
-
-```
+```typescript
 series: [
   {
-    name: '阶梯状',
+    name: 'Echelon',
     data: [1500, 1700, 1400, 2000],
     type: 'bar',
     shapeType: 'leftEchelon',
-    echelonOffset: 20 // 更大的偏移量
+    echelonOffset: 20 // Larger offset
   }
 ]
-```
+```  
 
-## 18. backgroundStyle属性
 
-作用：配置背景柱状图样式（仅对bar类型有效）
-
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   show：是否显示背景（Boolean，默认false）
--   color：背景颜色（String，默认'#f6f6f6'）
--   width：背景宽度（Number，默认柱状图宽度）
--   radius：背景圆角（Number，默认0）
-
-使用场景：当需要为柱状图添加背景参考时使用。
-
-```
-series: [
-  {
-    name: '销售额',
-    data: [1500, 1700, 1400, 2000],
-    type: 'bar',
-    backgroundStyle: {
-      show: true,
-      color: '#f0f0f0',
-      width: '80%', // 比柱子宽
-      radius: 4 // 圆角背景
-    }
-  }
-]
-```
-
-## 19. gradient属性
-
-作用：配置渐变色（仅对bar类型有效）
-
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   color：渐变色数组（Array，默认[]）
--   direction：渐变方向（String，默认'vertical'）
-
-使用场景：当需要为柱状图添加渐变效果时使用。
-
-```
-series: [
-  {
-    name: '渐变柱',
-    data: [1500, 1700, 1400, 2000],
-    type: 'bar',
-    gradient: {
-      color: ['#37a2da', '#67e0e3'], // 蓝到青的渐变
-      direction: 'horizontal' // 水平渐变
-    }
-  }
-]
-```
-
-## 20. barStyle属性
-
-作用：配置柱状图样式（仅对bar类型有效）
-
-类型：Object
-
-默认值：{}
-
-子属性：
-
--   stroke：描边颜色（String，默认无描边）
--   strokeWidth：描边宽度（Number，默认1）
--   radius：柱状图圆角（Number|Array，默认0）
--   shadow：阴影配置（Object，默认无阴影）
-
-使用场景：当需要自定义柱状图外观时使用。
-
-```
-series: [
-  {
-    name: '圆角柱',
-    data: [1500, 1700, 1400, 2000],
-    type: 'bar',
-    barStyle: {
-      stroke: '#333',
-      strokeWidth: 2,
-      radius: [10, 10, 0, 0], // 仅顶部圆角
-      shadow: {
-        color: 'rgba(0,0,0,0.3)',
-        blur: 10,
-        offsetX: 0,
-        offsetY: 5
-      }
-    }
-  }
-]
-```
-
-## 实际应用案例
-
-下面是一个综合使用多个series属性的实际案例，展示了一个销售仪表板：
-
-```
-@Entry
-@Component
-struct SalesDashboard {
-  @State options: Options = new Options({
-    title: {
-      show: true,
-      text: '销售仪表板',
-      right: 20,
-      top: 22
-    },
-    legend: {
-      show: true,
-      bottom: 10
-    },
-    xAxis: {
-      data: ['1月', '2月', '3月', '4月', '5月', '6月']
-    },
-    yAxis: [
-      { name: '销售额(万)' },
-      { 
-        name: '增长率(%)',
-        position: 'right',
-        splitLine: { show: false }
-      }
-    ],
-    series: [
-      {
-        name: '目标',
-        data: [120, 120, 120, 120, 120, 120],
-        type: 'bar',
-        backgroundStyle: {
-          show: true,
-          color: '#f6f6f6'
-        },
-        barStyle: {
-          radius: 0
-        },
-        rLevel: 0
-      },
-      {
-        name: '销售额',
-        data: [100, 130, 110, 150, 140, 160],
-        type: 'bar',
-        gradient: {
-          color: ['#37a2da', '#67e0e3']
-        },
-        barStyle: {
-          radius: [5, 5, 0, 0]
-        },
-        label: {
-          show: true,
-          position: 'top',
-          color: '#333'
-        },
-        rLevel: 1
-      },
-      {
-        name: '增长率',
-        data: [10, 30, 10, 50, 40, 60],
-        type: 'line',
-        yAxisIndex: 1,
-        smooth: true,
-        lineStyle: {
-          width: 3
-        },
-        itemStyle: {
-          color: '#ff0000',
-          radius: 5
-        },
-        areaStyle: {
-          show: true,
-          color: 'rgba(255,0,0,0.1)'
-        },
-        endLabel: {
-          show: true,
-          value: '当前增长率',
-          color: '#ff0000',
-          fontSize: 14
-        }
-      }
-    ]
-  });
-
-  build() {
-    Row() {
-      McLineBarChart({ options: this.options })
-    }
-    .height('50%')
-  }
-}
-```
-
-这个案例中：
-
-1.  使用背景柱状图展示销售目标
-1.  使用渐变柱状图展示实际销售额
-1.  使用平滑曲线和面积图展示增长率
-1.  添加了末端标签突出当前增长率
-1.  通过rLevel控制系列层级
-
-好，这期讲到这里就结束了，希望大家通过这篇文章能够全面掌握McLineBarChart的series属性配置，在实际项目中灵活运用这些属性创建出精美的组合图表。如果有任何问题，欢迎在评论区留言讨论。
+## 18. `backgroundStyle` Property  
+**Function**: Configures the background bar chart style (only valid for bar type).  
+**
